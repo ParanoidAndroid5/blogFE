@@ -1,0 +1,19 @@
+<div *ngIf="blog" class="blog-detail-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ blog.title }}</mat-card-title>
+        <mat-card-subtitle>{{ blog.author }} - {{ blog.date }}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="blog.imageUrl" alt="{{ blog.title }}">
+      <mat-card-content>
+        <p>{{ blog.content }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <!-- Eğer blog verisi yüklenmediyse -->
+  <div *ngIf="!blog">
+    <p>Blog detayı yükleniyor veya bulunamadı.</p>
+    <h1>gülnur</h1>
+  </div>
+  

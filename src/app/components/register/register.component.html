@@ -1,0 +1,20 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Kullanıcı Adı</mat-label>
+      <input matInput formControlName="userName" required>
+      <mat-error *ngIf="registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched">
+        Kullanıcı adı zorunludur.
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Parola</mat-label>
+      <input matInput type="password" formControlName="password" required>
+      <mat-error *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        Parola zorunludur.
+      </mat-error>
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">Kayıt Ol</button>
+  </form>
+  
