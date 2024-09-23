@@ -20,6 +20,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MatCardModule } from '@angular/material/card';
 import { BlogDetailComponent } from './components/blog-detail/blog-detail.component';
+import { MatChipsModule } from '@angular/material/chips';
+
+
+
+
+
 
 
 @NgModule({
@@ -47,6 +53,9 @@ import { BlogDetailComponent } from './components/blog-detail/blog-detail.compon
     MatIconModule,
     HttpClientModule,
     MatCardModule,
+    MatChipsModule,
+    MatIconModule,
+    
     
   ],
   providers: [],

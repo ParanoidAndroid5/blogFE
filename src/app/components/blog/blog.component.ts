@@ -1,37 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { BlogService } from '../../services/blog.service';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import {Blog} from 'src/app/models/blog';
+import { BlogService } from 'src/app/services/blog.service';  
 
-interface Blog {
-  id: number;
-  title: string;
-  content: string;
-  imageUrl: string;
-  author: string;
-  date: string;
-}
 
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss']
 })
-export class BlogComponent implements OnInit {
-  blogs: Blog[] = [];
+export class BlogComponent {
+  blogPostForm: FormGroup;
 
-  constructor(private blogService: BlogService) {}
-
-  ngOnInit(): void {
-    this.fetchBlogs();
+  constructor(
+    private fb: FormBuilder,
+    private BlogService: BlogService,
+    private router: Router
+  ) {
+    this.blogPostForm = this.fb.group({
+      username: ['', Validators.required],
+      title: ['', Validators.required],
+      content: ['', Validators.required],
+      imageUrl: ['', Validators.required],
+    });
   }
 
-  fetchBlogs(): void {
-    this.blogService.getBlogs().subscribe(
-      (data: Blog[]) => {
-        this.blogs = data;
-      },
-      (error) => {
-        console.error('Blogları çekerken hata oluştu:', error);
-      }
-    );
+  onSubmit(): void {
+    if (this.blogPostForm.valid) {
+      const newBlogPost: Blog = this.blogPostForm.value;
+      this.BlogService.createBlogPost(newBlogPost).subscribe(
+        response => {
+          console.log('Post created successfully:', response);
+          this.router.navigate(['/home']); 
+        },
+        error => {
+          console.error('Error creating blog post:', error);
+        }
+      );
+    }
   }
 }

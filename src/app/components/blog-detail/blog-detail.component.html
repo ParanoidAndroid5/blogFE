@@ -1,6 +1,7 @@
 <div *ngIf="blog" class="blog-detail-container">
     <mat-card>
       <mat-card-header>
+        <h2>{{ blog.username}}</h2>
         <mat-card-title>{{ blog.title }}</mat-card-title>
         <mat-card-subtitle>{{ blog.author }} - {{ blog.date }}</mat-card-subtitle>
       </mat-card-header>
@@ -8,12 +9,19 @@
       <mat-card-content>
         <p>{{ blog.content }}</p>
       </mat-card-content>
+        <div class="like-section">
+          
+          <button mat-button (click)="likePost()">
+            <mat-icon>favorite</mat-icon>
+          </button>
+          <span>{{ blog.likeCount }}</span>
+        </div>
+      
     </mat-card>
   </div>
   
   <!-- Eğer blog verisi yüklenmediyse -->
   <div *ngIf="!blog">
     <p>Blog detayı yükleniyor veya bulunamadı.</p>
-    <h1>gülnur</h1>
   </div>
   

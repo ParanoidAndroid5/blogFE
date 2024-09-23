@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { HttpClient } from '@angular/common/http'; // Add this import
+import { HttpClient, HttpHeaders } from '@angular/common/http'; 
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
     this.loginForm = this.formBuilder.group({
-      userName: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
@@ -23,15 +23,23 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
+      const httpOptions = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+        })
+    };
       this.userService.login(this.loginForm.value).subscribe(
         (response: any) => {
-          console.log('Giriş başarılı:', response);
-          this.router.navigate(['/blog']);
+          console.log(response.message);
+          this.router.navigate(['/home']);
         },
         (error) => {
-          console.error('Giriş hatası:', error);
+          console.error(error);
         }
       );
     }
   }
+ 
+
+  
 }

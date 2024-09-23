@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 interface User {
-  userName: string;
+  username: string;
   password: string;
 }
 
@@ -22,4 +22,5 @@ export class UserService {
   login(user: User): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, user);
   }
+  
 }

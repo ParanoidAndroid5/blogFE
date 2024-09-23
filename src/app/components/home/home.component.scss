@@ -1,0 +1,66 @@
+.home-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+  
+    .blog-list {
+      flex: 3; 
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+  
+      .blog-card {
+        width: 100%;
+      }
+  
+      mat-card {
+        border-radius: 8px;
+        transition: box-shadow 0.3s;
+  
+        &:hover {
+          box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+        }
+      }
+  
+      mat-card-header {
+        display: flex;
+        align-items: center;
+  
+        .header-avatar {
+          background-color: #f0f0f0;
+          border-radius: 50%;
+        }
+      }
+    }
+  
+    .sidebar {
+      flex: 1; 
+      padding-left: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+  
+      .search-field {
+        width: 100%;
+      }
+  
+      .tag-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+  
+        h3 {
+          margin: 0;
+          font-size: 18px;
+          font-weight: 600;
+        }
+  
+        .tag-button {
+          justify-content: start;
+          border-radius: 16px;
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+  

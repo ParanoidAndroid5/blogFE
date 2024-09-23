@@ -1,8 +1,8 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill">
       <mat-label>Kullanıcı Adı</mat-label>
-      <input matInput formControlName="userName" required>
-      <mat-error *ngIf="loginForm.get('userName')?.invalid && loginForm.get('userName')?.touched">
+      <input matInput formControlName="username" required>
+      <mat-error *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
         Kullanıcı adı zorunludur.
       </mat-error>
     </mat-form-field>

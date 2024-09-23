@@ -1,15 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Blog } from '../models/blog';
 
-interface Blog {
-  id: number;
-  title: string;
-  content: string;
-  imageUrl: string;
-  author: string;
-  date: string;
-}
+
 
 @Injectable({
   providedIn: 'root'
@@ -29,4 +23,15 @@ export class BlogService {
 
         
       }
+    
+  likePost(postId: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${postId}/like`, {});
+  }
+  
+  createBlogPost(blog: Blog): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, blog);
+  }
+  // searchPostsByName(name: string): Observable<Blog[]> {
+  //   return this.http.get<Blog[]>(`${this.apiUrl}/search/${name}`);
+  // }
 }
