@@ -1,4 +1,5 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<div class="container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill">
       <mat-label>Kullanıcı Adı</mat-label>
       <input matInput formControlName="username" required>
@@ -21,5 +22,7 @@
       <p>Hesabınız yok mu? <a routerLink="/register">Kayıt Ol</a></p>
     </div>
   </form>
+</div>
+
   
   

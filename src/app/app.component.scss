@@ -1,0 +1,19 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Sayfanın yüksekliği kadar */
+  }
+  
+  router-outlet {
+    flex: 1; /* İçeriğin tüm boş alanı kaplamasını sağlar */
+    display: flex; /* İçeriği düzenlemek için flex kullanın */
+    justify-content: center; /* İçeriği dikey ortalamak için */
+    align-items: center; /* İçeriği yatay ortalamak için */
+  }
+  

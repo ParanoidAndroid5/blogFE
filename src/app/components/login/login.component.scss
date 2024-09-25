@@ -1,12 +1,18 @@
+
+.container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; // Tüm yüksekliği kapla
+}
+
 form {
-    margin-top: 100px;
-    display: flex;
-    flex-direction: column;
-    width: 300px; 
-    margin: auto; 
-  }
-  
-  mat-form-field {
-    margin-bottom: 10px; 
-  }
-  
+  display: flex;
+  flex-direction: column;
+  width: 300px; 
+  margin: auto; 
+}
+
+mat-form-field {
+  margin-bottom: 10px; 
+}
