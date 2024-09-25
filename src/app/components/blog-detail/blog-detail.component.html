@@ -1,27 +1,73 @@
 <div *ngIf="blog" class="blog-detail-container">
-    <mat-card>
-      <mat-card-header>
-        <h2>{{ blog.username}}</h2>
-        <mat-card-title>{{ blog.title }}</mat-card-title>
-        <mat-card-subtitle>{{ blog.author }} - {{ blog.date }}</mat-card-subtitle>
-      </mat-card-header>
-      <img mat-card-image [src]="blog.imageUrl" alt="{{ blog.title }}">
-      <mat-card-content>
-        <p>{{ blog.content }}</p>
-      </mat-card-content>
-        <div class="like-section">
-          
-          <button mat-button (click)="likePost()">
-            <mat-icon>favorite</mat-icon>
-          </button>
-          <span>{{ blog.likeCount }}</span>
-        </div>
-      
-    </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <h2>{{ blog.username }}</h2>
+      <mat-card-title>{{ blog.title }}</mat-card-title>
+      <mat-card-subtitle>{{ blog.author }} - {{ blog.date }}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="blog.imageUrl" alt="{{ blog.title }}">
+    <mat-card-content>
+      <p>{{ blog.content }}</p>
+    </mat-card-content>
+    <div class="like-section">
+      <button mat-button (click)="likePost()">
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <span>{{ blog.likeCount }}</span>
+    </div>
+  </mat-card>
+</div>
+
+<!-- Eğer blog verisi yüklenmediyse -->
+<div *ngIf="!blog">
+  <p>Blog detayı yükleniyor veya bulunamadı.</p>
+</div>
+
+<!-- Yorum yükleniyorsa -->
+<div *ngIf="isLoadingComments; else commentSection">
+  <mat-spinner></mat-spinner>
+</div>
+
+<!-- Yorumlar kısmı -->
+<ng-template #commentSection>
+  <div *ngIf="comments.length > 0; else noComments">
+    <h3>Yorumlar</h3>
+    <div *ngFor="let comment of comments">
+      <mat-card class="comment-card">
+        <mat-card-header>
+          <mat-card-title>{{ comment.postedBy }}</mat-card-title>
+          <mat-card-subtitle *ngIf="comment.date">{{ comment.date | date:'short' }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ comment.content }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="deleteComment(comment.id)" [disabled]="!isAdminUser">Sil</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
-  
-  <!-- Eğer blog verisi yüklenmediyse -->
-  <div *ngIf="!blog">
-    <p>Blog detayı yükleniyor veya bulunamadı.</p>
-  </div>
-  
+
+  <ng-template #noComments>
+    <p>Henüz yorum yok.</p>
+  </ng-template>
+</ng-template>
+
+<mat-card class="comment-form">
+  <mat-card-header>
+    <mat-card-title>Yorum Yap</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Kullanıcı Adı</mat-label>
+      <input matInput [(ngModel)]="newCommentPostedBy" required />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Yorumunuz</mat-label>
+      <textarea matInput [(ngModel)]="newCommentContent" required></textarea>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="submitComment()">Yorumu Gönder</button>
+  </mat-card-actions>
+</mat-card>

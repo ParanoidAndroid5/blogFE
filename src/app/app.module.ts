@@ -21,6 +21,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MatCardModule } from '@angular/material/card';
 import { BlogDetailComponent } from './components/blog-detail/blog-detail.component';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms'; 
 
 
 
@@ -55,6 +57,9 @@ import { MatChipsModule } from '@angular/material/chips';
     MatCardModule,
     MatChipsModule,
     MatIconModule,
+    MatProgressSpinnerModule,
+    FormsModule
+    
     
     
   ],

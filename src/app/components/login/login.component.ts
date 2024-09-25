@@ -23,20 +23,25 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-        })
-    };
-      this.userService.login(this.loginForm.value).subscribe(
-        (response: any) => {
-          console.log(response.message);
-          this.router.navigate(['/home']);
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+        this.userService.login(this.loginForm.value).subscribe(
+            (response: any) => {
+                console.log('Response:', response); 
+                console.log('User ID:', response.userId); 
+                
+                localStorage.setItem('userId', response.userId);
+                this.router.navigate(['/home']).then(() => {
+                  window.location.reload(); 
+                });
+            },
+            (error) => {
+                console.error(error);
+            }
+        );
     }
   }
  
