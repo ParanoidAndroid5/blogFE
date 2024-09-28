@@ -6,7 +6,7 @@
     <a mat-button *ngIf="isLoggedIn" routerLink="/profile">
       <mat-icon>account_circle</mat-icon> Profil
     </a> 
-    <a mat-button routerLink="/new-blog"> 
+    <a mat-button *ngIf="isLoggedIn" routerLink="/new-blog"> 
       <mat-icon>create</mat-icon> Yeni Blog 
     </a>
     

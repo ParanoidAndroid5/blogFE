@@ -1,5 +1,7 @@
+
 <div class="container">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <img src="../../../assets/login.png" alt="Profil Fotoğrafı" />
     <mat-form-field appearance="fill">
       <mat-label>Kullanıcı Adı</mat-label>
       <input matInput formControlName="username" required>

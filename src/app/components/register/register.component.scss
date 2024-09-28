@@ -16,3 +16,11 @@ form {
 mat-form-field {
   margin-bottom: 10px; 
 }
+img{
+  width: 80px;
+  height: 80px;
+  margin:auto;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border 0.3s;
+}

@@ -22,7 +22,7 @@ export class BlogComponent {
       username: ['', Validators.required],
       title: ['', Validators.required],
       content: ['', Validators.required],
-      imageUrl: ['', Validators.required],
+      imgUrl: ['', Validators.required],
     });
   }
 

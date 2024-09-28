@@ -9,12 +9,14 @@ import { Blog } from 'src/app/models/blog';
 })
 export class HomeComponent implements OnInit {
   blogs: Blog[] = [];
+  
 
 
   constructor(private blogService: BlogService) {}
 
   ngOnInit(): void {
     this.fetchBlogs();
+    
   }
 
   fetchBlogs(): void {
@@ -29,9 +31,23 @@ export class HomeComponent implements OnInit {
   }
 
 
-  tags = ['Angular', 'JavaScript', 'Web Development', 'CSS', 'HTML', 'TypeScript','Java'];
 
-  onSearch(query: string): void {
-    console.log('Searching for:', query);
+
+  onSearch(searchTerm: string) {
+    if (searchTerm) {
+      this.blogService.searchByName(searchTerm).subscribe(
+        (data: Blog[]) => {
+          this.blogs = data; 
+          console.log('Search results:', data); 
+        },
+        error => {
+          console.error('Arama hatası:', error);
+          this.blogs = []; 
+        }
+      );
+    } else {
+      this.fetchBlogs(); 
+    }
+  }
 }
-}
+

@@ -31,7 +31,9 @@ export class BlogService {
   createBlogPost(blog: Blog): Observable<any> {
     return this.http.post(`${this.apiUrl}`, blog);
   }
-  // searchPostsByName(name: string): Observable<Blog[]> {
-  //   return this.http.get<Blog[]>(`${this.apiUrl}/search/${name}`);
-  // }
+  searchByName(name: string): Observable<Blog[]> {
+    return this.http.get<Blog[]>(`${this.apiUrl}/search/${name}`);
+  }
+ 
+  
 }

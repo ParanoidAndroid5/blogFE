@@ -1,4 +1,58 @@
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  background-color: #969bb4;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: 48px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav a, nav button {
+  font-size: 1rem;
+  color: white;
+  margin-left: 15px;
+  transition: color 0.3s, background-color 0.3s, transform 0.3s;
+}
+
+nav a:hover, nav button:hover {
+  color: #d390da; 
+  transform: scale(1.1);
+}
+
 .spacer {
-    flex: 1 1 auto;
-  }
-  
+  flex: 1;
+}
+
+mat-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+nav a, nav button {
+  display: flex;
+  align-items: center;
+}
+
+nav a mat-icon, nav button mat-icon {
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+button mat-icon {
+  color: white;
+}

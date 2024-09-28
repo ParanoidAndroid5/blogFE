@@ -5,7 +5,7 @@ export interface Blog
   username: string;
   title: string;
   content: string;
-  imageUrl: string;
+  imgUrl: string;
   
   date: string;
   likeCount: number;

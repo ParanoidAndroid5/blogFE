@@ -1,12 +1,22 @@
+<div class="sidebar">
+  <mat-form-field class="search-field" appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput  (input)="onSearch($event.target.value)">
+    <button mat-icon-button matSuffix>
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+<div *ngIf="blogs.length === 0">No results found.</div>
 <div class="home-container">
     <div class="blog-list">
       <mat-card class="blog-card" *ngFor="let blog of blogs">
         <mat-card-header>
           <div mat-card-avatar class="header-avatar"></div>
-          <mat-card-title>{{ blog.title }}</mat-card-title>
+          <mat-card-title>{{ blog.name }}</mat-card-title>
           <mat-card-subtitle>{{ blog.author }}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image [src]="blog.image" alt="Blog image">
+        <img mat-card-image *ngIf="blog?.imgUrl" [src]="blog.imgUrl" alt="blog image">
         <mat-card-content>
           <p>
             {{ blog.content }}
@@ -18,22 +28,5 @@
         </mat-card-actions>
       </mat-card>
     </div>
-  
+</div>
     
-    <div class="sidebar">
-      <mat-form-field class="search-field" appearance="outline">
-        <mat-label>Search</mat-label>
-        <input matInput placeholder="Search blogs..." (input)="onSearch($event.target.value)">
-        <button mat-icon-button matSuffix>
-          <mat-icon>search</mat-icon>
-        </button>
-      </mat-form-field>
-  
-      <div class="tag-list">
-        <h3>Popular Tags</h3>
-        <button mat-button class="tag-button" *ngFor="let tag of tags" (click)="onTagClick(tag)">
-          {{ tag }}
-        </button>
-      </div>
-    </div>
-  </div>
