@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '../models/user';
 
-interface User {
-  username: string;
-  password: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +19,13 @@ export class UserService {
   login(user: User): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, user);
   }
+  updateUser(userId: number, updatedUser: User): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/api/users/${userId}`, updatedUser);
+  }
+  
+  deleteUser(userId: number, adminUserId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/api/users/${userId}?adminUserId=${adminUserId}`);
+  }
+  
   
 }

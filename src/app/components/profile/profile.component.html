@@ -1,22 +1,35 @@
 <div class="profile-container">
-    <h2>Profil Bilgileri</h2>
-  
-    <div>
-        <img src="https://media.istockphoto.com/id/1300845620/tr/vekt%C3%B6r/kullan%C4%B1c%C4%B1-simgesi-d%C3%BCz-beyaz-arka-plan-%C3%BCzerinde-izole-kullan%C4%B1c%C4%B1-sembol%C3%BC-vekt%C3%B6r-ill%C3%BCstrasyonu.jpg?s=1024x1024&w=is&k=20&c=TA3TD5g1CfgZ3gYwsuD7n0FPbUnJmJ0Qjc2GObvFTWM="alt="profil-avatar">   
-        <button  mat-button >Avatarı Güncelle</button>
-    </div>
-    
-  
-    <!-- Kullanıcı Adı Değiştirme -->
-    <div class="username-section">
-      <label for="username">mislinacetiner</label>
-      <!-- <input id="username" [(ngModel)]="username" /> -->
-     <button mat-button >Kullanıcı Adını Güncelle</button>
-    </div>
-  
-    <!-- Şifre Değiştirme -->
-    <div>
-      <button mat-button >Şifreyi Değiştir</button>
-    </div>
+  <h2>Profilim</h2>
+  <div class="user-info">
+    <h3>Kullanıcı Adı: {{ userName }}</h3>
   </div>
-  
+
+  <form [formGroup]="userForm" (ngSubmit)="updateUser()">
+    <mat-form-field appearance="fill">
+      <mat-label>Kullanıcı Adı</mat-label>
+      <input matInput formControlName="userName">
+      <mat-error *ngIf="userForm.get('userName')?.hasError('required')">
+        Kullanıcı adı gereklidir.
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Güncelle</button>
+    <button mat-raised-button color="warn" (click)="deleteUser()">Kullanıcı Sil</button>
+  </form>
+
+  <h3>Ait Olduğu Postlar</h3>
+  <div class="post-list">
+    <mat-card *ngFor="let post of userBlogs">
+      <mat-card-header>
+        <mat-card-title>{{ post.title }}</mat-card-title>
+        <mat-card-subtitle>{{ post.date | date: 'short' }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ post.content }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button [routerLink]="['/blog-detail', post.id]">Detayları Gör</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

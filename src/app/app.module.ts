@@ -22,7 +22,10 @@ import { MatCardModule } from '@angular/material/card';
 import { BlogDetailComponent } from './components/blog-detail/blog-detail.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
+import { ShareDialogComponent } from './components/share-dialog/share-dialog.component'; 
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -40,7 +43,8 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    BlogDetailComponent
+    BlogDetailComponent,
+    ShareDialogComponent
     
   ],
   imports: [
@@ -58,7 +62,10 @@ import { FormsModule } from '@angular/forms';
     MatChipsModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    MatIconModule,
+    MatSnackBarModule
     
     
     
