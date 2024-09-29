@@ -19,7 +19,7 @@
         <img mat-card-image *ngIf="blog?.imgUrl" [src]="blog.imgUrl" alt="blog image">
         <mat-card-content>
           <p>
-            {{ blog.content }}
+            {{ blog.content | truncate: 200 }}
           </p>
         </mat-card-content>
         <mat-card-actions>

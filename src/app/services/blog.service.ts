@@ -34,6 +34,11 @@ export class BlogService {
   searchByName(name: string): Observable<Blog[]> {
     return this.http.get<Blog[]>(`${this.apiUrl}/search/${name}`);
   }
- 
-  
+   
+  deleteBlogPost(postId: number, adminUserId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${postId}?adminUserId=${adminUserId}`);
+  }
+  updateBlogPost  (postId: number, updatedPost: Blog): Observable<Blog> {
+    return this.http.put<Blog>(`${this.apiUrl}/${postId}`, updatedPost);
+  }
 }

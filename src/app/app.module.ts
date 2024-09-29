@@ -26,6 +26,9 @@ import { FormsModule } from '@angular/forms';
 import { ShareDialogComponent } from './components/share-dialog/share-dialog.component'; 
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { TruncatePipe } from './shared/components/pipes/truncate.pipe';
+
+
 
 
 
@@ -44,7 +47,11 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     RegisterComponent,
     ProfileComponent,
     BlogDetailComponent,
-    ShareDialogComponent
+    ShareDialogComponent,
+    TruncatePipe
+
+
+
     
   ],
   imports: [

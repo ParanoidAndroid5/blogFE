@@ -7,6 +7,9 @@
         <span class="separator">|</span>
         <span> {{ blog.date | date: 'short' }}</span>
       </mat-card-subtitle>
+      <button class="cancel-buton" mat-button (click)="deletePost()">
+        <mat-icon>cancel</mat-icon>
+      </button>
     </mat-card-header>
     <img mat-card-image [src]="blog.imgUrl" alt="blog image">
     <mat-card-content>

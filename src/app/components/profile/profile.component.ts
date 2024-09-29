@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit {
     if (this.userForm.valid) {
       const updatedUser: User = {
         id: this.currentUserId,
-        username: this.userForm.value.username || undefined, // Kullanıcı adı yoksa undefined
+        username: this.userForm.value.username || undefined, 
         password: this.userForm.value.password ? this.userForm.value.password : undefined,
       };
   
@@ -52,11 +52,11 @@ export class ProfileComponent implements OnInit {
       this.userService.updateUser(this.currentUserId, updatedUser).subscribe(
         () => {
           if (updatedUser.username) {
-            this.username = updatedUser.username; // Kullanıcı adını güncelle
+            this.username = updatedUser.username;
             localStorage.setItem('username', this.username);
           }
           alert('Kullanıcı bilgileri başarıyla güncellendi!');
-          this.userForm.reset(); // Formu sıfırlayın
+          this.userForm.reset(); 
         },
         (error) => {
           console.error('Kullanıcı güncellenirken hata oluştu:', error);

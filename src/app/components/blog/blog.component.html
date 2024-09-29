@@ -4,7 +4,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>userName</mat-label>
-      <input matInput formControlName="username" placeholder="Kullanıcı adınızı girin">
+      <input matInput formControlName="username" required>
       <mat-error *ngIf="blogPostForm.get('username')?.hasError('required')">
         userName is required.
       </mat-error>

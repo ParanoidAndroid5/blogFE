@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {Blog} from 'src/app/models/blog';
 import { BlogService } from 'src/app/services/blog.service';  
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -10,20 +11,28 @@ import { BlogService } from 'src/app/services/blog.service';
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss']
 })
-export class BlogComponent {
+export class BlogComponent implements OnInit{
   blogPostForm: FormGroup;
+  username: string = '';
 
   constructor(
     private fb: FormBuilder,
     private BlogService: BlogService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) {
     this.blogPostForm = this.fb.group({
-      username: ['', Validators.required],
+      username: [this.username],
       title: ['', Validators.required],
       content: ['', Validators.required],
       imgUrl: ['', Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    this.username = localStorage.getItem('username') || ''; 
+    this.blogPostForm.get('username')?.setValue(this.username); 
+    
   }
 
   onSubmit(): void {

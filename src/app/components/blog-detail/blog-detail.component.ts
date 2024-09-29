@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
 import { Blog } from '../../models/blog';
 import { Comment } from '../../models/comment';
@@ -22,6 +22,7 @@ export class BlogDetailComponent implements OnInit {
 
 
   currentUserId!: number;
+  currentUserName!: string;
   isAdminUser = false;  
 
   @Input() id!: number;
@@ -30,14 +31,18 @@ export class BlogDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private blogService: BlogService,
     private commentService: CommentService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router : Router
   ) {}
 
   ngOnInit(): void {
     const blogId = this.route.snapshot.paramMap.get('id');
 
     this.currentUserId = this.authService.getCurrentUserId();
+    this.currentUserName = this.authService.getCurrentusername();
     this.isAdminUser = this.authService.isAdmin();
+
+    this.newCommentPostedBy = localStorage.getItem('username') || ''; 
 
     
     if (blogId) {
@@ -103,7 +108,7 @@ export class BlogDetailComponent implements OnInit {
         console.log('Yorum başarıyla eklendi:', response);
         this.comments.push(newComment);
         this.newCommentContent = '';
-        this.newCommentPostedBy = ''; 
+        this.newCommentPostedBy = localStorage.getItem('username') || '';  
       },
       error => {
         console.error('Yorum eklenirken hata oluştu:', error);
@@ -125,6 +130,23 @@ export class BlogDetailComponent implements OnInit {
           alert('Yorum silme işlemi sırasında bir hata oluştu.');
         }
       );
+    }
+  }
+  deletePost() {
+    if (this.isAdminUser) {
+      this.blogService.deleteBlogPost(this.blogId, this.currentUserId).subscribe(
+        () => {
+          console.log('Post başarıyla silindi');
+          alert('Post başarıyla silindi.');
+          this.router.navigate(['/home']); // Silindikten sonra ana sayfaya yönlendir
+        },
+        (error) => {
+          console.error('Post silinirken hata oluştu:', error);
+          alert('Post silme işlemi sırasında bir hata oluştu.');
+        }
+      );
+    } else {
+      alert('Bu işlemi gerçekleştirmek için yeterli yetkiniz yok.');
     }
   }
 }
