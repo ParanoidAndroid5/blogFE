@@ -2,7 +2,7 @@ export interface Blog
 { 
   id: number;
   author: string;
-  username: string;
+  userName: string;
   title: string;
   content: string;
   imgUrl: string;

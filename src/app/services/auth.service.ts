@@ -14,8 +14,9 @@ export class AuthService {
     const userId = localStorage.getItem('userId');
     return userId ? +userId : 0; 
   }
-  getCurrentuserName(): string {
-    const username = localStorage.getItem('userName'); 
+  getCurrentusername(): string {
+    const username = localStorage.getItem('username'); 
+    console.log(username);
     return username ? username : ''; 
   }
 

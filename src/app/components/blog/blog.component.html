@@ -3,10 +3,10 @@
   <form [formGroup]="blogPostForm" (ngSubmit)="onSubmit()">
 
     <mat-form-field appearance="fill">
-      <mat-label>Username</mat-label>
+      <mat-label>userName</mat-label>
       <input matInput formControlName="username" placeholder="Kullanıcı adınızı girin">
       <mat-error *ngIf="blogPostForm.get('username')?.hasError('required')">
-        Username is required.
+        userName is required.
       </mat-error>
     </mat-form-field>
 
@@ -28,8 +28,8 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Image URL</mat-label>
-      <input matInput formControlName="imageUrl" placeholder="Resim URL'sini girin">
-      <mat-error *ngIf="blogPostForm.get('imageUrl')?.hasError('required')">
+      <input matInput formControlName="imgUrl" placeholder="Resim URL'sini girin">
+      <mat-error *ngIf="blogPostForm.get('imgUrl')?.hasError('required')">
         Image URL is required.
       </mat-error>
     </mat-form-field>

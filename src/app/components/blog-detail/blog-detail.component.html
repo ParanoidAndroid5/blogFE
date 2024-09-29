@@ -2,23 +2,31 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>{{ blog.name }}</mat-card-title>
-      <h2>{{ blog.username }}</h2>
       <mat-card-subtitle class="subtitle">
-        <span>{{ blog.author }}</span>
+        <span> Posted by {{ blog.username }}</span>
         <span class="separator">|</span>
-        <span>{{ blog.date | date: 'short' }}</span>
+        <span> {{ blog.date | date: 'short' }}</span>
       </mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image [src]="blog.imgUrl" alt="blog image">
     <mat-card-content>
       <p>{{ blog.content }}</p>
     </mat-card-content>
-    <div class="like-section">
-      <button mat-button (click)="likePost()">
-        <mat-icon>favorite</mat-icon>
-      </button>
-      <span>{{ blog.likeCount }}</span>
+    <div class="mat-card-actions">
+      <div class="like-section">
+        <button mat-button (click)="likePost()">
+          <mat-icon>favorite</mat-icon>
+          <span>{{ blog.likeCount }}</span>
+        </button>
+      </div>
+      <div class="eyes">
+        <button mat-button>
+          <mat-icon>remove_red_eye</mat-icon>
+          <span>{{ blog.viewCount }}</span>
+        </button>
+      </div>
     </div>
+    
   </mat-card>
 </div>
 

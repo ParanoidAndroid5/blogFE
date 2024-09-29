@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { BlogService } from 'src/app/services/blog.service';
-import { UserService } from 'src/app/services/user.service'; // Kullanıcı servisi ekleyin
+import { UserService } from 'src/app/services/user.service'; 
 import { Blog } from 'src/app/models/blog';
-import { User} from 'src/app/models/user'; // Kullanıcı modelini ekleyin
+import { User} from 'src/app/models/user'; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  userName: string = '';
+  username: string = '';
   userBlogs: Blog[] = [];
   userForm!: FormGroup; // Kullanıcı formu
   currentUserId!: number;
@@ -26,40 +26,37 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserId = this.authService.getCurrentUserId(); 
-    this.userName = this.authService.getCurrentuserName(); 
+    this.username = this.authService.getCurrentusername(); 
     //this.loadUserBlogs();
     this.initializeUserForm(); 
   }
 
   initializeUserForm() {
     this.userForm = this.fb.group({
-      userName: [this.userName, Validators.required], 
-      // Diğer kullanıcı alanlarını buraya ekleyin
+      username: [this.username], 
+      password: ['', [ Validators.minLength(6)]],
+      
     });
   }
 
-  // loadUserBlogs(): void {
-  //   this.blogService.getBlogsByUserId(this.currentUserId).subscribe(
-  //     (Blogs: Blog[]) => {
-  //       this.userBlogs = Blogs; // Kullanıcıya ait Blogları yükle
-  //     },
-  //     (error) => {
-  //       console.error('Bloglar yüklenirken hata oluştu:', error);
-  //     }
-  //   );
-  // }
 
   updateUser(): void {
     if (this.userForm.valid) {
       const updatedUser: User = {
-        ...this.userForm.value,
-        id: this.currentUserId 
+        id: this.currentUserId,
+        username: this.userForm.value.username || undefined, // Kullanıcı adı yoksa undefined
+        password: this.userForm.value.password ? this.userForm.value.password : undefined,
       };
+  
 
       this.userService.updateUser(this.currentUserId, updatedUser).subscribe(
         () => {
+          if (updatedUser.username) {
+            this.username = updatedUser.username; // Kullanıcı adını güncelle
+            localStorage.setItem('username', this.username);
+          }
           alert('Kullanıcı bilgileri başarıyla güncellendi!');
-          this.userName = updatedUser.userName; 
+          this.userForm.reset(); // Formu sıfırlayın
         },
         (error) => {
           console.error('Kullanıcı güncellenirken hata oluştu:', error);
@@ -69,18 +66,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  deleteUser(): void {
-    const adminUserId = this.authService.getCurrentUserId(); 
-
-    this.userService.deleteUser(this.currentUserId, adminUserId).subscribe(
-      () => {
-        alert('Kullanıcı başarıyla silindi.');
-        
-      },
-      (error) => {
-        console.error('Kullanıcı silinirken hata oluştu:', error);
-        alert('Kullanıcı silme işlemi sırasında bir hata oluştu.');
-      }
-    );
-  }
+  
+  
 }

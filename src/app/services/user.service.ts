@@ -19,12 +19,16 @@ export class UserService {
   login(user: User): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, user);
   }
+  getOnlyOneUser(userId: number): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${userId}`);
+  }
   updateUser(userId: number, updatedUser: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/api/users/${userId}`, updatedUser);
+    console.log(updatedUser);
+    return this.http.put<User>(`${this.apiUrl}/${userId}`, updatedUser);
   }
   
   deleteUser(userId: number, adminUserId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/api/users/${userId}?adminUserId=${adminUserId}`);
+    return this.http.delete<void>(`${this.apiUrl}/${userId}?adminUserId=${adminUserId}`);
   }
   
   

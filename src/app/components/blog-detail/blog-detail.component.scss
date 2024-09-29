@@ -1,7 +1,7 @@
 .blog-detail-container {
   display: flex;
-  flex-direction: column; /* Dikey sıralama için */
-  align-items: center; /* Ortada konumlandırmak için */
+  flex-direction: column; 
+  align-items: center; 
   margin-top: 20px;
 }
 
@@ -9,26 +9,21 @@ mat-card {
   max-width: 800px;
   width: 100%;
   margin-bottom: 20px;
-  border: 1px solid #e0e0e0; /* Şık kenarlık */
-  border-radius: 12px; /* Kenarlık köşelerini yuvarlak yaptık */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+  border: 1px solid #e0e0e0; 
+  border-radius: 12px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
   transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 mat-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Hover durumunda derinlik */
-}
-
-mat-card-header h2 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #3f51b5; 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
 mat-card-title {
   font-size: 1.3rem;
   font-weight: bold;
+  
 }
 
 mat-card-subtitle {
@@ -40,21 +35,38 @@ mat-card-content p {
   line-height: 1.6;
 }
 
-.like-section {
+
+.like-section, 
+.eyes {
   display: flex;
   align-items: center;
-  margin-top: 10px;
+}
+
+.like-section {
+  margin-right: 10px; 
 }
 
 .like-section mat-icon {
   color: #f44336; 
 }
 
-.like-section span {
-  margin-left: 8px;
+.like-section span, 
+.eyes span {
+  margin-left: 8px; 
   font-size: 1.1rem;
 }
 
+.eyes mat-icon {
+  color: #757575;
+}
+
+
+.mat-card-actions {
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center;
+  margin-top: 10px;
+}
 
 .comment-card {
   margin: 10px 0; 
@@ -112,3 +124,4 @@ mat-card-content p {
   background-color: #f5f5f5;
   border-bottom: 1px solid #e0e0e0;
 }
+

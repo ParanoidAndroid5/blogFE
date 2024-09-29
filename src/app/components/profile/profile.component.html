@@ -1,35 +1,37 @@
 <div class="profile-container">
-  <h2>Profilim</h2>
+  <h2>Profil Ayarları</h2>
+  
   <div class="user-info">
-    <h3>Kullanıcı Adı: {{ userName }}</h3>
+    <h3>Kullanıcı Adı: {{ username }}</h3>
   </div>
 
-  <form [formGroup]="userForm" (ngSubmit)="updateUser()">
+  <form [formGroup]="userForm">
     <mat-form-field appearance="fill">
       <mat-label>Kullanıcı Adı</mat-label>
-      <input matInput formControlName="userName">
-      <mat-error *ngIf="userForm.get('userName')?.hasError('required')">
+      <input matInput formControlName="username" required>
+      <mat-error *ngIf="userForm.get('username')?.hasError('required')">
         Kullanıcı adı gereklidir.
       </mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">Güncelle</button>
-    <button mat-raised-button color="warn" (click)="deleteUser()">Kullanıcı Sil</button>
-  </form>
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit">Kullanıcı Adını Güncelle</button>
+    </div>
 
-  <h3>Ait Olduğu Postlar</h3>
-  <div class="post-list">
-    <mat-card *ngFor="let post of userBlogs">
-      <mat-card-header>
-        <mat-card-title>{{ post.title }}</mat-card-title>
-        <mat-card-subtitle>{{ post.date | date: 'short' }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p>{{ post.content }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button [routerLink]="['/blog-detail', post.id]">Detayları Gör</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Yeni Parola</mat-label>
+      <input matInput type="password" formControlName="password">
+      <mat-error *ngIf="userForm.get('password')?.hasError('required')">
+        Parola gereklidir.
+      </mat-error>
+      <mat-error *ngIf="userForm.get('password')?.hasError('minlength')">
+        Parola en az 6 karakter olmalıdır.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button mat-raised-button color="accent" type="submit">Parolayı Güncelle</button>
+    </div>
+  </form>
 </div>
+

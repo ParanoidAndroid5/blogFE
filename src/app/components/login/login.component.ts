@@ -35,7 +35,8 @@ export class LoginComponent implements OnInit {
                 console.log('Username:', response.username);
                 
                 localStorage.setItem('userId', response.userId); 
-                localStorage.setItem('username', response.username); // Kullanıcı adını sakla
+                localStorage.setItem('username', response.username); 
+             
 
                 this.router.navigate(['/home']).then(() => {
                   window.location.reload(); 

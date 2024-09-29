@@ -1,19 +1,47 @@
+
 .profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  min-height: 100vh; 
+  padding: 20px;
+  background-color: #f9f9f9; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333; 
+  }
+
+  .user-info {
+    margin-bottom: 20px;
+    h3 {
+      font-size: 20px;
+      color: #555; 
+    }
+  }
+
+  form {
+    width: 100%;
     max-width: 400px;
     margin: 0 auto;
-  }
-  
 
- img {
-    width: 80px;
-    height: 80px;
-    margin: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: border 0.3s;
+    mat-form-field {
+      width: 100%; 
+      margin-bottom: 20px; 
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center; 
+      margin-bottom: 20px; 
+    }
+
+    button {
+      width: 100%; 
+    }
   }
-  
-  .avatars img.selected {
-    border: 3px solid #007bff;
-  }
-  
+}
