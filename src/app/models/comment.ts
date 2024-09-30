@@ -3,5 +3,5 @@ export interface Comment {
     postId: number; 
     postedBy: string; 
     content: string; 
-    date?: Date; 
+    createdAt?: Date; 
 }

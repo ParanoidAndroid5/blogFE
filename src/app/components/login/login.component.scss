@@ -30,3 +30,25 @@ img{
   cursor: pointer;
   transition: border 0.3s;
 }
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+  
+  p {
+    font-size: 1rem;
+    color: #757575;
+    font-weight: 400;
+
+    a {
+      color: #1976d2;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.3s ease, text-decoration 0.3s ease;
+      
+      &:hover {
+        color: #004ba0;
+        text-decoration: underline;
+      }
+    }
+  }
+}

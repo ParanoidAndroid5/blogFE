@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(ShareDialogComponent, {
       data: {
         id: blog.id,           
-        title: blog.title,   
+        name: blog.name,   
         url: `http://localhost:4200/blog-detail/1` 
       }
     });

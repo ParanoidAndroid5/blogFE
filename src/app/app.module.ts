@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
+import { FooterComponent }from './shared/components/footer/footer.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,6 +27,7 @@ import { ShareDialogComponent } from './components/share-dialog/share-dialog.com
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { TruncatePipe } from './shared/components/pipes/truncate.pipe';
+import { BlogEditComponent } from './components/blog-edit/blog-edit.component';
 
 
 
@@ -48,7 +49,8 @@ import { TruncatePipe } from './shared/components/pipes/truncate.pipe';
     ProfileComponent,
     BlogDetailComponent,
     ShareDialogComponent,
-    TruncatePipe
+    TruncatePipe,
+    BlogEditComponent
 
 
 

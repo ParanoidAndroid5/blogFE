@@ -1,5 +1,13 @@
 <div *ngIf="blog" class="blog-detail-container">
   <mat-card>
+    <div class="button-container">
+      <button class="cancel-buton"[disabled]="!isAdminUser" mat-button (click)="deletePost()">
+        <mat-icon>cancel</mat-icon>
+      </button>  
+      <button mat-button [routerLink]="['/edit', this.blogId]">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
     <mat-card-header>
       <mat-card-title>{{ blog.name }}</mat-card-title>
       <mat-card-subtitle class="subtitle">
@@ -7,9 +15,6 @@
         <span class="separator">|</span>
         <span> {{ blog.date | date: 'short' }}</span>
       </mat-card-subtitle>
-      <button class="cancel-buton" mat-button (click)="deletePost()">
-        <mat-icon>cancel</mat-icon>
-      </button>
     </mat-card-header>
     <img mat-card-image [src]="blog.imgUrl" alt="blog image">
     <mat-card-content>
@@ -29,6 +34,7 @@
         </button>
       </div>
     </div>
+    
     
   </mat-card>
 </div>
@@ -53,17 +59,14 @@
   </mat-card-actions>
 </mat-card>
 
-<!-- Eğer blog verisi yüklenmediyse -->
 <div *ngIf="!blog">
   <p>Blog detayı yükleniyor veya bulunamadı.</p>
 </div>
 
-<!-- Yorum yükleniyorsa -->
 <div *ngIf="isLoadingComments; else commentSection">
   <mat-spinner></mat-spinner>
 </div>
 
-<!-- Yorumlar kısmı -->
 <ng-template #commentSection>
   <div *ngIf="comments.length > 0; else noComments">
     <h3>Yorumlar</h3>
@@ -84,7 +87,6 @@
   </div>
 
   <ng-template #noComments>
-    <p>Henüz yorum yok.</p>
+    <p  class="no-comments">Henüz yorum yok.</p>
   </ng-template>
 </ng-template>
-

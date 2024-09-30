@@ -23,7 +23,7 @@ export class BlogComponent implements OnInit{
   ) {
     this.blogPostForm = this.fb.group({
       username: [this.username],
-      title: ['', Validators.required],
+      name: ['', Validators.required],
       content: ['', Validators.required],
       imgUrl: ['', Validators.required],
     });

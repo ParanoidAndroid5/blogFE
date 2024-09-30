@@ -2,7 +2,8 @@
   <mat-icon>book</mat-icon> 
   <span class="spacer"></span>
   <nav>
-    <a mat-button routerLink="/">Anasayfa</a>
+    <a mat-button routerLink="/"><mat-icon>home</mat-icon>Ana Sayfa</a>
+
     <a mat-button *ngIf="isLoggedIn" routerLink="/profile">
       <mat-icon>account_circle</mat-icon> Profil
     </a> 

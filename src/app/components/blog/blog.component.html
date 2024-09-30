@@ -12,9 +12,9 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Title</mat-label>
-      <input matInput formControlName="title" placeholder="Başlık girin">
-      <mat-error *ngIf="blogPostForm.get('title')?.hasError('required')">
-        Title is required.
+      <input matInput formControlName="name" placeholder="Başlık girin">
+      <mat-error *ngIf="blogPostForm.get('name')?.hasError('required')">
+        name is required.
       </mat-error>
     </mat-form-field>
 

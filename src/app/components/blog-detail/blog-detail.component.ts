@@ -93,6 +93,33 @@ export class BlogDetailComponent implements OnInit {
     );
   }
 
+  editPost(updatedname: string, updatedContent: string, updatedImg: string) {
+    if (!this.blog) {
+      return;
+    }
+  
+    
+    const updatedBlog: Blog = {
+      ...this.blog,  
+      name: updatedname || this.blog.name,  
+      content: updatedContent || this.blog.content,
+      imgUrl: updatedImg || this.blog.imgUrl
+    };
+  
+    this.blogService.updateBlogPost(this.blogId, updatedBlog).subscribe(
+      (response: Blog) => {
+        console.log('Post başarıyla güncellendi:', response);
+        alert('Post başarıyla güncellendi.');
+        this.blog = response;  
+      },
+      (error) => {
+        console.error('Post güncellenirken hata oluştu:', error);
+        alert('Post güncelleme işlemi sırasında bir hata oluştu.');
+      }
+    );
+  }
+  
+
   
   submitComment() {
     const newComment: Comment = {
@@ -100,7 +127,7 @@ export class BlogDetailComponent implements OnInit {
       postId: this.blogId,  // Mevcut blog ID'sini kullanıyoruz
       postedBy: this.newCommentPostedBy,
       content: this.newCommentContent,
-      date: new Date() 
+      createdAt: new Date() 
     };
   
     this.commentService.createComment(newComment).subscribe(
@@ -138,7 +165,7 @@ export class BlogDetailComponent implements OnInit {
         () => {
           console.log('Post başarıyla silindi');
           alert('Post başarıyla silindi.');
-          this.router.navigate(['/home']); // Silindikten sonra ana sayfaya yönlendir
+          this.router.navigate(['/home']); 
         },
         (error) => {
           console.error('Post silinirken hata oluştu:', error);
