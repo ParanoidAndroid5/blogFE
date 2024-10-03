@@ -26,6 +26,7 @@ export class BlogDetailComponent implements OnInit {
   isAdminUser = false;  
   isAuthenticated = false;
   isPostOwner = false;
+  isCommentOwner = false;
 
   @Input() id!: number;
 
@@ -44,6 +45,7 @@ export class BlogDetailComponent implements OnInit {
     this.currentUserName = this.authService.getCurrentusername();
     this.isAdminUser = this.authService.isAdmin();
    this.isAuthenticated = this.authService.checkLoginStatus();
+
    
 
     this.newCommentPostedBy = localStorage.getItem('username') || ''; 
@@ -72,6 +74,7 @@ export class BlogDetailComponent implements OnInit {
       (data: Comment[]) => {
         this.comments = data;  
         this.isLoadingComments = false;  
+        
       },
       (error) => {
         console.error('Yorumlar yüklenirken hata oluştu:', error);
@@ -141,6 +144,8 @@ export class BlogDetailComponent implements OnInit {
         this.comments.push(newComment);
         this.newCommentContent = '';
         this.newCommentPostedBy = localStorage.getItem('username') || '';  
+        this.isCurrentUserCommentOwner(newComment);
+        
       },
       error => {
         console.error('Yorum eklenirken hata oluştu:', error);
@@ -150,9 +155,9 @@ export class BlogDetailComponent implements OnInit {
   }
 
   deleteComment(commentId: number) {
-    const adminUserId = this.currentUserId;
-    if (this.isAdminUser || this.isPostOwner) {
-      this.commentService.deleteComment(commentId, adminUserId).subscribe(
+    
+    if (this.isAdminUser || this.isPostOwner || this.isCommentOwner) {
+      this.commentService.deleteComment(commentId, this.currentUserId).subscribe(
         () => {
           console.log('Yorum başarıyla silindi');
           this.comments = this.comments.filter(comment => comment.id !== commentId);
@@ -161,11 +166,14 @@ export class BlogDetailComponent implements OnInit {
           console.error('Yorum silinirken hata oluştu:', error);
           alert('Yorum silme işlemi sırasında bir hata oluştu.');
         }
+        
       );
+    } else {
+      alert('Bu işlemi gerçekleştirmek için yeterli yetkiniz yok.');
     }
   }
   deletePost() {
-    if (this.isAdminUser || this.isPostOwner) {
+    if (this.isAdminUser || this.isPostOwner ) {
       this.blogService.deleteBlogPost(this.blogId, this.currentUserId).subscribe(
         () => {
           console.log('Post başarıyla silindi');
@@ -188,5 +196,13 @@ export class BlogDetailComponent implements OnInit {
     return this.isPostOwner
     
   }
+
+  // giriş yapan kullanıcı ile yorumu yapan kullanıcı aynı mı kontrolü
+  isCurrentUserCommentOwner(comment: Comment): boolean {
+    this.isCommentOwner = this.currentUserName === comment.postedBy;
+    console.log("isCommentOwner", this.isCommentOwner);
+    return this.isCommentOwner;
+    
+  } 
 
 }

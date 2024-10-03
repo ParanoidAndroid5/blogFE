@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Blog } from '../models/blog';
+import { Blog } from '../models/blog';  
+import { Comment } from '../models/comment';
 import { Observable } from 'rxjs';
 
 @Injectable({
