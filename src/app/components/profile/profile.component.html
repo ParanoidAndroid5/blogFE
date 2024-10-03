@@ -6,7 +6,7 @@
     <h3>Kullanıcı Adı: {{ username }}</h3>
   </div>
 
-  <form [formGroup]="userForm">
+  <form [formGroup]="userForm" (ngSubmit)="updateUser()">
     <mat-form-field appearance="fill">
       <mat-label>Kullanıcı Adı</mat-label>
       <input matInput formControlName="username" required>
@@ -16,7 +16,7 @@
     </mat-form-field>
 
     <div class="button-container">
-      <button mat-raised-button color="primary" type="submit">Kullanıcı Adını Güncelle</button>
+      <button mat-raised-button color="primary" type="submit" (onClik)=updateUser()>Kullanıcı Adını Güncelle</button>
     </div>
 
     <mat-form-field appearance="fill">
@@ -31,7 +31,7 @@
     </mat-form-field>
 
     <div class="button-container">
-      <button mat-raised-button color="accent" type="submit">Parolayı Güncelle</button>
+      <button mat-raised-button color="accent" type="submit" (onClick)="updateUser()">Parolayı Güncelle</button>
     </div>
   </form>
 </div>

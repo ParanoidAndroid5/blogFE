@@ -1,9 +1,8 @@
 export interface Blog
 { 
   id: number;
-  author: string;
-  userName: string;
-  name: string; //title a ref.
+  username: string;
+  name: string; //title a referans ediyor.
   content: string;
   imgUrl: string;
   

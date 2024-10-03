@@ -24,6 +24,8 @@ export class BlogDetailComponent implements OnInit {
   currentUserId!: number;
   currentUserName!: string;
   isAdminUser = false;  
+  isAuthenticated = false;
+  isPostOwner = false;
 
   @Input() id!: number;
 
@@ -41,6 +43,8 @@ export class BlogDetailComponent implements OnInit {
     this.currentUserId = this.authService.getCurrentUserId();
     this.currentUserName = this.authService.getCurrentusername();
     this.isAdminUser = this.authService.isAdmin();
+   this.isAuthenticated = this.authService.checkLoginStatus();
+   
 
     this.newCommentPostedBy = localStorage.getItem('username') || ''; 
 
@@ -51,6 +55,7 @@ export class BlogDetailComponent implements OnInit {
       this.blogService.getBlogById(this.blogId).subscribe(
         (data: Blog) => {
           this.blog = data;
+          this.isCurrentUserPostOwner();
         },
         (error) => {
           console.error('Blog detayı yüklenemedi:', error);
@@ -60,7 +65,7 @@ export class BlogDetailComponent implements OnInit {
       this.loadComments(this.blogId);
     }
   }
-
+   
   
   loadComments(postId: number) {
     this.commentService.getCommentsByPostId(postId).subscribe(
@@ -146,7 +151,7 @@ export class BlogDetailComponent implements OnInit {
 
   deleteComment(commentId: number) {
     const adminUserId = this.currentUserId;
-    if (this.isAdminUser) {
+    if (this.isAdminUser || this.isPostOwner) {
       this.commentService.deleteComment(commentId, adminUserId).subscribe(
         () => {
           console.log('Yorum başarıyla silindi');
@@ -160,7 +165,7 @@ export class BlogDetailComponent implements OnInit {
     }
   }
   deletePost() {
-    if (this.isAdminUser) {
+    if (this.isAdminUser || this.isPostOwner) {
       this.blogService.deleteBlogPost(this.blogId, this.currentUserId).subscribe(
         () => {
           console.log('Post başarıyla silindi');
@@ -176,4 +181,12 @@ export class BlogDetailComponent implements OnInit {
       alert('Bu işlemi gerçekleştirmek için yeterli yetkiniz yok.');
     }
   }
+
+  // giriş yapan kullanıcı ile postu paylaşan kullanıcı aynı mı kontrolü
+  isCurrentUserPostOwner(): boolean {
+    this.isPostOwner = this.currentUserName === this.blog?.username;
+    return this.isPostOwner
+    
+  }
+
 }

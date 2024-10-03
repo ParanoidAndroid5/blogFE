@@ -28,4 +28,11 @@ export class AuthService {
     return this.getCurrentUserId() !== 0; // Giriş yapmışsa true dön 
 }
 
+isAuthenticated(): Observable<boolean> {
+    return new Observable<boolean>(observer => {
+      observer.next(this.checkLoginStatus());
+      
+    });
+  }
+
 }

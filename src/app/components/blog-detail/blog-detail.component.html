@@ -1,10 +1,10 @@
 <div *ngIf="blog" class="blog-detail-container">
   <mat-card>
     <div class="button-container">
-      <button class="cancel-buton"[disabled]="!isAdminUser" mat-button (click)="deletePost()">
+      <button class="cancel-buton"*ngIf="isAdminUser || isPostOwner" mat-button (click)="deletePost()">
         <mat-icon>cancel</mat-icon>
       </button>  
-      <button mat-button [routerLink]="['/edit', this.blogId]">
+      <button mat-button  *ngIf="isAdminUser || isPostOwner" [routerLink]="['/edit', this.blogId]">
         <mat-icon>edit</mat-icon>
       </button>
     </div>
@@ -13,7 +13,7 @@
       <mat-card-subtitle class="subtitle">
         <span> Posted by {{ blog.username }}</span>
         <span class="separator">|</span>
-        <span> {{ blog.date | date: 'short' }}</span>
+        <span> {{ blog.date | date: 'medium'  }}</span>
       </mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image [src]="blog.imgUrl" alt="blog image">
@@ -74,13 +74,13 @@
       <mat-card class="comment-card">
         <mat-card-header>
           <mat-card-title>{{ comment.postedBy }}</mat-card-title>
-          <mat-card-subtitle *ngIf="comment.date">{{ comment.date | date:'short' }}</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="comment.createdAt">{{ comment.createdAt | date:'medium' }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <p>{{ comment.content }}</p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button (click)="deleteComment(comment.id)" [disabled]="!isAdminUser">Sil</button>
+          <button mat-button (click)="deleteComment(comment.id)" *ngIf="isAdminUser || isPostOwner">Sil</button>
         </mat-card-actions>
       </mat-card>
     </div>

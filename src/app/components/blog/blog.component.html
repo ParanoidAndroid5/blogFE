@@ -3,10 +3,10 @@
   <form [formGroup]="blogPostForm" (ngSubmit)="onSubmit()">
 
     <mat-form-field appearance="fill">
-      <mat-label>userName</mat-label>
+      <mat-label>username</mat-label>
       <input matInput formControlName="username" required>
       <mat-error *ngIf="blogPostForm.get('username')?.hasError('required')">
-        userName is required.
+        username is required.
       </mat-error>
     </mat-form-field>
 
