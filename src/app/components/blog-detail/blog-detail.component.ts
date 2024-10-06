@@ -17,13 +17,13 @@ export class BlogDetailComponent implements OnInit {
   comments: Comment[] = [];
   isLoadingComments = true;
 
-  newCommentContent: string = '';  
-  newCommentPostedBy: string = '';  
+  newCommentContent: string = '';
+  newCommentPostedBy: string = '';
 
 
   currentUserId!: number;
   currentUserName!: string;
-  isAdminUser = false;  
+  isAdminUser = false;
   isAuthenticated = false;
   isPostOwner = false;
   isCommentOwner = false;
@@ -46,11 +46,11 @@ export class BlogDetailComponent implements OnInit {
     this.isAdminUser = this.authService.isAdmin();
    this.isAuthenticated = this.authService.checkLoginStatus();
 
-   
 
-    this.newCommentPostedBy = localStorage.getItem('username') || ''; 
 
-    
+    this.newCommentPostedBy = localStorage.getItem('username') || '';
+
+
     if (blogId) {
       this.blogId = +blogId;
 
@@ -67,14 +67,20 @@ export class BlogDetailComponent implements OnInit {
       this.loadComments(this.blogId);
     }
   }
-   
-  
+
+
   loadComments(postId: number) {
     this.commentService.getCommentsByPostId(postId).subscribe(
       (data: Comment[]) => {
-        this.comments = data;  
-        this.isLoadingComments = false;  
-        
+        this.comments = data;
+        this.comments.some(comment => {
+          if (comment.postedBy === this.currentUserName) {
+            this.isCommentOwner = true;
+          }
+          this.isCommentOwner = false;
+        });
+        this.isLoadingComments = false;
+
       },
       (error) => {
         console.error('Yorumlar yüklenirken hata oluştu:', error);
@@ -83,7 +89,7 @@ export class BlogDetailComponent implements OnInit {
     );
   }
 
-  
+
   likePost() {
     if (!this.blog) {
       return;
@@ -92,7 +98,7 @@ export class BlogDetailComponent implements OnInit {
     this.blogService.likePost(this.blogId).subscribe(
       response => {
         console.log(response);
-        alert(response.message || response[0]); 
+        alert(response.message || response[0]);
       },
       error => {
         console.error('Error liking post:', error);
@@ -105,20 +111,20 @@ export class BlogDetailComponent implements OnInit {
     if (!this.blog) {
       return;
     }
-  
-    
+
+
     const updatedBlog: Blog = {
-      ...this.blog,  
-      name: updatedname || this.blog.name,  
+      ...this.blog,
+      name: updatedname || this.blog.name,
       content: updatedContent || this.blog.content,
       imgUrl: updatedImg || this.blog.imgUrl
     };
-  
+
     this.blogService.updateBlogPost(this.blogId, updatedBlog).subscribe(
       (response: Blog) => {
         console.log('Post başarıyla güncellendi:', response);
         alert('Post başarıyla güncellendi.');
-        this.blog = response;  
+        this.blog = response;
       },
       (error) => {
         console.error('Post güncellenirken hata oluştu:', error);
@@ -126,26 +132,26 @@ export class BlogDetailComponent implements OnInit {
       }
     );
   }
-  
 
-  
+
+
   submitComment() {
     const newComment: Comment = {
-      id: 0, 
+      id: 0,
       postId: this.blogId,  // Mevcut blog ID'sini kullanıyoruz
       postedBy: this.newCommentPostedBy,
       content: this.newCommentContent,
-      createdAt: new Date() 
+      createdAt: new Date()
     };
-  
+
     this.commentService.createComment(newComment).subscribe(
       response => {
         console.log('Yorum başarıyla eklendi:', response);
         this.comments.push(newComment);
         this.newCommentContent = '';
-        this.newCommentPostedBy = localStorage.getItem('username') || '';  
+        this.newCommentPostedBy = localStorage.getItem('username') || '';
         this.isCurrentUserCommentOwner(newComment);
-        
+
       },
       error => {
         console.error('Yorum eklenirken hata oluştu:', error);
@@ -155,7 +161,9 @@ export class BlogDetailComponent implements OnInit {
   }
 
   deleteComment(commentId: number) {
-    
+   // const comment: Comment = this.comments.find(comment => comment.id === commentId);
+   // this.isCurrentUserCommentOwner(comment);
+    console.log("isCommentOwner", this.isCommentOwner);
     if (this.isAdminUser || this.isPostOwner || this.isCommentOwner) {
       this.commentService.deleteComment(commentId, this.currentUserId).subscribe(
         () => {
@@ -166,7 +174,7 @@ export class BlogDetailComponent implements OnInit {
           console.error('Yorum silinirken hata oluştu:', error);
           alert('Yorum silme işlemi sırasında bir hata oluştu.');
         }
-        
+
       );
     } else {
       alert('Bu işlemi gerçekleştirmek için yeterli yetkiniz yok.');
@@ -178,7 +186,7 @@ export class BlogDetailComponent implements OnInit {
         () => {
           console.log('Post başarıyla silindi');
           alert('Post başarıyla silindi.');
-          this.router.navigate(['/home']); 
+          this.router.navigate(['/home']);
         },
         (error) => {
           console.error('Post silinirken hata oluştu:', error);
@@ -194,7 +202,7 @@ export class BlogDetailComponent implements OnInit {
   isCurrentUserPostOwner(): boolean {
     this.isPostOwner = this.currentUserName === this.blog?.username;
     return this.isPostOwner
-    
+
   }
 
   // giriş yapan kullanıcı ile yorumu yapan kullanıcı aynı mı kontrolü
@@ -202,7 +210,7 @@ export class BlogDetailComponent implements OnInit {
     this.isCommentOwner = this.currentUserName === comment.postedBy;
     console.log("isCommentOwner", this.isCommentOwner);
     return this.isCommentOwner;
-    
-  } 
+
+  }
 
 }
