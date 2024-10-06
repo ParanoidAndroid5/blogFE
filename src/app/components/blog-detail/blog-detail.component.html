@@ -80,7 +80,7 @@
           <p>{{ comment.content }}</p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button  mat-raised-button color="warn" (click)="deleteComment(comment.id)" *ngIf="isAdminUser || isPostOwner || isCommentOwner ">Sil</button>
+          <button mat-button  mat-raised-button color="warn" (click)="deleteComment(comment.id)" *ngIf="canDeleteComment(comment)">Sil</button>
         </mat-card-actions>
       </mat-card>
     </div>
